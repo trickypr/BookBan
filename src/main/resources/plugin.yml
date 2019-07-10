@@ -1,0 +1,6 @@
+name: Harbor
+version: ${version}
+author: TechToolbox (@nkomarn)
+main: xyz.nkomarn.SeedBookban.SeedBookban
+description: Eliminate bookbanning once and for all!
+api-version: 1.13
