@@ -1,4 +1,4 @@
-name: Harbor
+name: SeedBookban
 version: ${version}
 author: TechToolbox (@nkomarn)
 main: xyz.nkomarn.SeedBookban.SeedBookban
