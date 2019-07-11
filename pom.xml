@@ -42,7 +42,7 @@
   </dependencies>
   
   <build>
-    <directory>C:\Users\Mykyta\Documents\Spigot\1.13.2\plugins</directory>
+    <directory>target</directory>
     <resources>
       <resource>
         <filtering>true</filtering>
