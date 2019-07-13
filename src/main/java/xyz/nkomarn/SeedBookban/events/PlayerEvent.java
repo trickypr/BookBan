@@ -1,24 +1,15 @@
 package xyz.nkomarn.SeedBookban.events;
 
 import java.io.*;
-import java.lang.instrument.Instrumentation;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-
-import org.apache.commons.lang.SerializationUtils;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.player.PlayerEditBookEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.io.BukkitObjectOutputStream;
-import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 @SuppressWarnings("deprecation")
 public class PlayerEvent implements Listener {
@@ -53,7 +44,7 @@ public class PlayerEvent implements Listener {
             os.close();
 
             // Check to make sure inventory contents aren't over 1 MB
-            e.getPlayer().sendMessage(itemSize + " bytes. Inventory: " + invSize + " bytes.");
+            //e.getPlayer().sendMessage(itemSize + " bytes. Inventory: " + invSize + " bytes.");
             if (itemSize + invSize > 1000000) {
                 e.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',
                         "&8&l(&c&l!&8&l) &cPicking up this item would overflow your maximum inventory size, thus it will not be picked up."));
