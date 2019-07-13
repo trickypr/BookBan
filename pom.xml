@@ -3,10 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>xyz.nkomarn</groupId>
   <artifactId>SeedBookban</artifactId>
-  <version>1.0</version>
-  
-  <name>SeedBookban</name>
-  <url>http://nkomarn.xyz</url>
+  <version>${build.number}</version>
   
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

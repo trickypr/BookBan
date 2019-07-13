@@ -1,6 +1,6 @@
 name: SeedBookban
-version: ${version}
+version: Build ${version}
 author: TechToolbox (@nkomarn)
 main: xyz.nkomarn.SeedBookban.SeedBookban
-description: Eliminate bookbanning once and for all!
+description: Eliminate bookbanning once and for all! Compiled ${maven.build.timestamp}.
 api-version: 1.13
