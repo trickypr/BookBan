@@ -1,4 +1,7 @@
+# Will log information about your current inventory size. Extra details in the
+# server console
 debug: false
 
 limit:
-  inventory: 36000
+  # The maximum size (in bytes) that a players inventory is allowed to be
+  inventory: 10000

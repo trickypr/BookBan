@@ -1,12 +1,12 @@
-name: SeedBookban
-version: Build ${version}
-author: TechToolbox (@nkomarn)
-main: xyz.nkomarn.SeedBookban.SeedBookban
-description: Eliminate bookbanning once and for all! Compiled ${maven.build.timestamp}.
+name: BookBan
+version: ${version}
+author: TrickyPR
+main: com.trickypr.bookban.BookBan
+description: Stop bookbans before they crash players, with minimum gameplay impact
 api-version: 1.13
 
 commands:
   reloadbookban:
     description: Reload the bookban plugins config
     usage: /reloadbookban
-    permission: SeedBookban.reload
+    permission: bookban.reload

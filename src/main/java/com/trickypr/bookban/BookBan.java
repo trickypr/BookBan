@@ -1,4 +1,4 @@
-package xyz.nkomarn.SeedBookban;
+package com.trickypr.bookban;
 
 import java.util.ArrayList;
 
@@ -6,10 +6,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import xyz.nkomarn.SeedBookban.events.CommandEvent;
-import xyz.nkomarn.SeedBookban.events.PlayerEvent;
+import com.trickypr.bookban.events.CommandEvent;
+import com.trickypr.bookban.events.PlayerEvent;
 
-public class SeedBookban extends JavaPlugin {
+public class BookBan extends JavaPlugin {
     FileConfiguration config;
     ArrayList<ConfigDependant> configDependents;
 

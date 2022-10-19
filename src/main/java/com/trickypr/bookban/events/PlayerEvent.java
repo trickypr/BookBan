@@ -1,4 +1,4 @@
-package xyz.nkomarn.SeedBookban.events;
+package com.trickypr.bookban.events;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerEditBookEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 
-import xyz.nkomarn.SeedBookban.ConfigDependant;
+import com.trickypr.bookban.ConfigDependant;
 
 public class PlayerEvent implements Listener, ConfigDependant {
     FileConfiguration config;
