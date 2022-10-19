@@ -3,7 +3,10 @@ package xyz.nkomarn.SeedBookban.events;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,7 +16,22 @@ import org.bukkit.event.player.PlayerEditBookEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 
-public class PlayerEvent implements Listener {
+import xyz.nkomarn.SeedBookban.ConfigDependant;
+
+public class PlayerEvent implements Listener, ConfigDependant {
+    FileConfiguration config;
+
+    int maxInventorySize = 36000;
+
+    public PlayerEvent(FileConfiguration config) {
+        setConfig(config);
+    }
+
+    public void setConfig(FileConfiguration config) {
+        this.config = config;
+
+        maxInventorySize = config.getInt("limit.inventory");
+    }
 
     // Return inventory size in bytes
     private int inventorySize(ItemStack[] contents) {
@@ -53,12 +71,17 @@ public class PlayerEvent implements Listener {
             int itemSize = os.toByteArray().length;
             os.close();
 
+            if (config.getBoolean("debug")) {
+                player.sendMessage(itemSize + " bytes. Inventory: " + invSize + " bytes.");
+                Bukkit.getLogger().info("Player: " + player.getDisplayName() + ", Item:" + itemSize
+                        + " bytes, Inventory: " + invSize + " bytes, Total: " + (invSize + itemSize) + " bytes.");
+            }
+
             // Check to make sure inventory contents aren't over 36kb
-            // e.getPlayer().sendMessage(itemSize + " bytes. Inventory: " + invSize + "
-            // bytes.");
-            if (itemSize + invSize > 36000) {
+            if (itemSize + invSize > maxInventorySize) {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        "&8&l(&c&l!&8&l) &cPicking up this item would overflow your maximum inventory size, thus it will not be picked up."));
+                        "&8&l(&c&l!&8&l) &cPicking up this item (" + (itemSize + invSize) + "/" + maxInventorySize
+                                + ") would overflow your maximum inventory size, thus it will not be picked up."));
                 e.setCancelled(true);
             }
         } catch (IOException ex) {
@@ -77,33 +100,4 @@ public class PlayerEvent implements Listener {
             e.setCancelled(true);
         }
     }
-
-    /*
-     * @EventHandler
-     * public void onClick(InventoryClickEvent e) {
-     * ItemStack item = e.getCurrentItem();
-     * Inventory destination = e.getWhoClicked().getInventory();
-     * Player player = (Player) e.getWhoClicked();
-     * 
-     * if (e.getCurrentItem().getType() != Material.AIR) try {
-     * ByteArrayOutputStream os = new ByteArrayOutputStream();
-     * BukkitObjectOutputStream data = new BukkitObjectOutputStream(os);
-     * data.writeObject(item);
-     * data.close();
-     * int itemSize = os.toByteArray().length;
-     * os.close();
-     * 
-     * // Check to make sure shulker box size isn't over 15KB
-     * if (itemSize > 15000) {
-     * player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-     * "&8&l(&c&l!&8&l) &cThis shulker box is 15KB and overflows the maximum allowed size."
-     * ));
-     * e.setCancelled(true);
-     * }
-     * }
-     * catch (IOException ex) {
-     * ex.printStackTrace();
-     * }
-     * }
-     */
 }

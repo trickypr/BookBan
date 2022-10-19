@@ -4,3 +4,9 @@ author: TechToolbox (@nkomarn)
 main: xyz.nkomarn.SeedBookban.SeedBookban
 description: Eliminate bookbanning once and for all! Compiled ${maven.build.timestamp}.
 api-version: 1.13
+
+commands:
+  reloadbookban:
+    description: Reload the bookban plugins config
+    usage: /reloadbookban
+    permission: SeedBookban.reload

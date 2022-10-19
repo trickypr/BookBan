@@ -1,3 +1,4 @@
+debug: false
+
 limit:
-  book: 3
-  shulker: 100
+  inventory: 36000
