@@ -1,5 +1,6 @@
 package com.trickypr.bookban.events;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,6 +17,9 @@ public class CommandEvent implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         plugin.reloadPluginConfig();
+
+        sender.sendMessage("BookBan config reloaded!");
+        Bukkit.getLogger().info("BookBan config reloaded!");
 
         return true;
     }
