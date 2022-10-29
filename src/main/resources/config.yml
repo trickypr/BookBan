@@ -4,4 +4,4 @@ debug: false
 
 limit:
   # The maximum size (in bytes) that a players inventory is allowed to be
-  inventory: 10000
+  inventory: 33236
