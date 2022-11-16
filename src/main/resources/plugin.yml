@@ -6,7 +6,7 @@ description: Stop bookbans before they crash players, with minimum gameplay impa
 api-version: 1.13
 
 commands:
-  reloadbookban:
-    description: Reload the bookban plugins config
-    usage: /reloadbookban
+  bookban:
+    description: Allows for the configuration of bookbans
+    usage: /bookban
     permission: bookban.reload

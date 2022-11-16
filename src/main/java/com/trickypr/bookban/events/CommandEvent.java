@@ -16,10 +16,25 @@ public class CommandEvent implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        plugin.reloadPluginConfig();
+        if (args.length == 0) {
+            sender.sendMessage("BookBan v" + plugin.getDescription().getVersion());
+            sender.sendMessage("Usage: /bookban reload");
+            return true;
+        }
 
-        sender.sendMessage("BookBan config reloaded!");
-        Bukkit.getLogger().info("BookBan config reloaded!");
+        if (args[0].equalsIgnoreCase("reload")) {
+            if (!sender.hasPermission("bookban.reload")) {
+                sender.sendMessage("You do not have permission to use this command.");
+                return true;
+            }
+
+            plugin.reloadPluginConfig();
+
+            sender.sendMessage("BookBan config reloaded!");
+            Bukkit.getLogger().info("BookBan config reloaded!");
+
+            return true;
+        }
 
         return true;
     }

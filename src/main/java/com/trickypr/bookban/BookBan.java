@@ -21,7 +21,7 @@ public class BookBan extends JavaPlugin {
         CommandEvent reloadCommand = new CommandEvent(this);
 
         Bukkit.getPluginManager().registerEvents(playerEventHandler, this);
-        getCommand("reloadbookban").setExecutor(reloadCommand);
+        getCommand("bookban").setExecutor(reloadCommand);
 
         configDependents = new ArrayList<ConfigDependant>();
         configDependents.add(playerEventHandler);
