@@ -102,6 +102,8 @@ public class PlayerEvent implements Listener, ConfigDependant {
         // Check if the item is larger than any single item is allowed to be
         if (itemSize > maxItemSize) {
             e.setCancelled(true);
+            e.getItem().remove();
+            Bukkit.getLogger().info("Player " + player.getName() + " tried to pick up an item that was too large.");
             player.sendMessage(ChatColor.RED + "You cannot pick up this item, it is to large (" + itemSize + " > "
                     + maxItemSize + ")");
             return;
@@ -112,6 +114,7 @@ public class PlayerEvent implements Listener, ConfigDependant {
         if (itemSize + invSize > maxInventorySize) {
             player.sendMessage(ChatColor.RED + "You cannot pick up this item, your inventory is to full ("
                     + (itemSize + invSize) + " > " + maxInventorySize + ")");
+            Bukkit.getLogger().info("Player " + player.getName() + " tried to pick up an item that would make their inventory too large.");
             e.setCancelled(true);
         }
     }
