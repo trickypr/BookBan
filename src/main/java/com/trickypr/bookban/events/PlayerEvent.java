@@ -21,9 +21,9 @@ import com.trickypr.bookban.ConfigDependant;
 public class PlayerEvent implements Listener, ConfigDependant {
     FileConfiguration config;
 
-    int maxInventorySize = 27448;
-    int maxItemSize = 9269;
-    int maxBookSize = 8000;
+    long maxInventorySize = 27448;
+    long maxItemSize = 9269;
+    long maxBookSize = 8000;
 
     boolean disabled = false;
     boolean debug = false;
@@ -35,19 +35,19 @@ public class PlayerEvent implements Listener, ConfigDependant {
     public void setConfig(FileConfiguration config) {
         this.config = config;
 
-        maxInventorySize = config.getInt("limit.inventory");
-        maxItemSize = config.getInt("limit.item");
-        maxBookSize = config.getInt("limit.book");
+        maxInventorySize = config.getLong("limit.inventory");
+        maxItemSize = config.getLong("limit.item");
+        maxBookSize = config.getLong("limit.book");
 
         disabled = config.getBoolean("disabled");
         debug = config.getBoolean("debug");
     }
 
-    private int getItemSize(ItemStack stack) {
+    private long getItemSize(ItemStack stack) {
         if (stack == null)
             return 0;
 
-        int size = 0;
+        long size = 0;
 
         BlockStateMeta meta = null;
 
@@ -63,14 +63,17 @@ public class PlayerEvent implements Listener, ConfigDependant {
             size += inventorySize(shulker.getInventory().getContents());
         }
 
-        size += stack.serializeAsBytes().length;
+        // Counterintuitively, the serialize as bytes function takes significantly
+        // longer to run because it tries to compress the file. Instead, we will
+        // just use the string length, even though that is not a great proxy.
+        size += stack.serialize().toString().getBytes(StandardCharsets.UTF_8).length;
 
         return size;
     }
 
     // Return inventory size in bytes
-    private int inventorySize(ItemStack[] contents) {
-        int size = 0;
+    private long inventorySize(ItemStack[] contents) {
+        long size = 0;
         for (ItemStack stack : contents) {
             size += getItemSize(stack);
         }
@@ -91,8 +94,8 @@ public class PlayerEvent implements Listener, ConfigDependant {
 
         ItemStack item = e.getItem().getItemStack();
 
-        int invSize = inventorySize(player.getInventory().getContents());
-        int itemSize = getItemSize(item);
+        long invSize = inventorySize(player.getInventory().getContents());
+        long itemSize = getItemSize(item);
 
         if (debug) {
             Bukkit.getLogger().info("Player: " + player.getName() + ", Item: " + itemSize
@@ -102,7 +105,6 @@ public class PlayerEvent implements Listener, ConfigDependant {
         // Check if the item is larger than any single item is allowed to be
         if (itemSize > maxItemSize) {
             e.setCancelled(true);
-            e.getItem().remove();
             Bukkit.getLogger().info("Player " + player.getName() + " tried to pick up an item that was too large.");
             player.sendMessage(ChatColor.RED + "You cannot pick up this item, it is to large (" + itemSize + " > "
                     + maxItemSize + ")");
@@ -112,10 +114,11 @@ public class PlayerEvent implements Listener, ConfigDependant {
         // Check if the total inventory size is larger than the maximum
         // inventory size
         if (itemSize + invSize > maxInventorySize) {
+            e.setCancelled(true);
             player.sendMessage(ChatColor.RED + "You cannot pick up this item, your inventory is to full ("
                     + (itemSize + invSize) + " > " + maxInventorySize + ")");
-            Bukkit.getLogger().info("Player " + player.getName() + " tried to pick up an item that would make their inventory too large.");
-            e.setCancelled(true);
+            Bukkit.getLogger().info("Player " + player.getName()
+                    + " tried to pick up an item that would make their inventory too large.");
         }
     }
 

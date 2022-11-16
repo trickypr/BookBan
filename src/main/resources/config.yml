@@ -7,14 +7,11 @@ disabled: false
 
 limit:
   # The maximum size that a players inventory is allowed to be
-  inventory: 50674
+  inventory: 5223975
   # The maximum size of item that the player is allowed to pick up. If this is
   # to large, the player will be able to pick up an item, but will crash when
   # they open their inventory
-  item: 8260
+  item: 731461
   # This is the maximum size of books that are allowed to be created, intended
   # to stop the creation of books for bookbans in survival servers
-  #
-  # Note that the units for this are slightly different from the rest of the
-  # available keys
   book: 8000
